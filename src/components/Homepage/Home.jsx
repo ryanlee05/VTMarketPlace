@@ -12,6 +12,8 @@ const Home = () => {
 
     const [selectedFilter, setSelectedFilter] = useState('Creation');
 
+    const [search, setSearch] = useState('');
+
     const handleFilterChange = (filter) => {
         setSelectedFilter(filter);
     };
@@ -41,20 +43,27 @@ const Home = () => {
                     orderByColumn = 'created_at';
             }
 
-            const {data, error} = await supabase.from('Items').select('*').order(orderByColumn, {ascending: ascending});
+            let data = supabase.from('Items').select('*').order(orderByColumn, {ascending: ascending}); 
 
+            if (search) {
+                data = data.ilike('title', `%${search}%`);
+            }
+
+            let {data: results, error} = await data;
+            
             if (error) {
                 console.error("Error fetching data", error);
+                setData([])
             }
-            else {
-                setData(data);
-            }
+
+            setData(results);
 
             setLoading(false);
             
         }
         fetchData();
-    }, [selectedFilter])
+
+    }, [selectedFilter, search])
 
     const handleLikeSuccess = (updatedCard) => {
         setData(prevData =>
@@ -74,6 +83,8 @@ const Home = () => {
             <InfoFilter
                 selected = {selectedFilter}
                 onFilterChange = {handleFilterChange}
+                search = {search}
+                setSearch = {setSearch}
             />
             <div className = "min-h-[75vh] flex justify-center items-center">
             </div>
@@ -86,6 +97,8 @@ const Home = () => {
             <InfoFilter
                 selected = {selectedFilter}
                 onFilterChange = {handleFilterChange}
+                search = {search}
+                setSearch = {setSearch}
             />
             <div className = "min-h-[75vh] flex justify-center items-center">
                 <div className = "flex flex-col justify-center gap-5 items-center">
@@ -104,6 +117,8 @@ const Home = () => {
             <InfoFilter
                 selected = {selectedFilter}
                 onFilterChange = {handleFilterChange}
+                search = {search}
+                setSearch = {setSearch}
             />
             <div className = "min-h-[75vh]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
