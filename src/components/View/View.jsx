@@ -106,7 +106,7 @@ const View = () => {
                     <div className = "flex flex-col">
                         <img 
                         src = {item.image}
-                        className = "w-65 h-auto rounded-2xl"
+                        className = "w-65 h-auto rounded-2xl aspect-square"
                         />
                         <h1 className = "font-mono font-bold text-2xl">{item.title}</h1>
                         <h1 className = "text-xl"><b>Price: </b>${item.price}</h1>
@@ -147,7 +147,7 @@ const View = () => {
             </div>
         </div>
         
-        
+
     )
 }
 
