@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react'
 import supabase from '../../Supabase'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import Card from '../Shared/Card'
 import InfoFilter from './InfoFilter'
 
 const Home = () => {
+
+    const location = useLocation();
 
     const [data, setData] = useState([]);
 
@@ -63,7 +65,7 @@ const Home = () => {
         }
         fetchData();
 
-    }, [selectedFilter, search])
+    }, [selectedFilter, search, location.state?.itemDeleted])
 
     const handleLikeSuccess = (updatedCard) => {
         setData(prevData =>

@@ -90,7 +90,7 @@ const View = () => {
             alert('had trouble removing comments');
             return false;
         }
-        navigate('/');
+        navigate('/', { state: { itemDeleted: true } });
         return true;
     }
 
