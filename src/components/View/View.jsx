@@ -132,7 +132,7 @@ const View = () => {
                         {allComments.map((comment) => (
                             <h1 className = "text-xl mt-3 text-black">* {comment.content}</h1>
                         ))}
-                    </div>
+                    </div> 
                 </div>
                 <div className = "h-[10vh] bg-black/20 w-[30vw] rounded-b-xl flex flex-row items-center">
                     <form onSubmit = {addComment}>
@@ -146,6 +146,7 @@ const View = () => {
                 </div>
             </div>
         </div>
+        
         
     )
 }
