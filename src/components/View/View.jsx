@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import supabase from '../../Supabase';
 
 const View = () => {
+
+    const navigate = useNavigate();
 
     const params = useParams();
 
@@ -88,7 +90,7 @@ const View = () => {
             alert('had trouble removing comments');
             return false;
         }
-
+        navigate('/');
         return true;
     }
 
@@ -117,9 +119,7 @@ const View = () => {
                     </div>
                 </div>
                 <div className = "mt-5 flex flex-row gap-10">
-                    <Link to = {'/'}>
                     <button onClick = {deleteItem} className = "bg-black text-white px-5  duration-150 py-3 rounded-2xl shadow-2xl hover:bg-black/85">Delete Post</button>
-                    </Link>
                     <Link to = {`/customize/${id}/${slug}`}>
                     <button className = "bg-black text-white px-5  duration-150 py-3 rounded-2xl shadow-2xl hover:bg-black/85">Edit Post</button>
                     </Link>
