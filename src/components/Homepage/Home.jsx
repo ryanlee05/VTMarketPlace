@@ -120,14 +120,13 @@ const Home = () => {
                 search = {search}
                 setSearch = {setSearch}
             />
-            <div className = "min-h-[75vh]">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+            <div className = "min-h-[60vh] flex items-center justify-evenly">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-30 p-4">
                     {data.map((card) => (
                         <Card 
                             key = {card.id}
                             title = {card.title}
                             imageURL = {card.image}
-                            price = {card.price}
                             likes = {card.likes}
                             id = {card.id}
                             onLikeSuccess = {handleLikeSuccess}

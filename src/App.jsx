@@ -2,9 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Shared/Navbar'
 import Home from './components/Homepage/Home'
 import Footer from './components/Shared/Footer'
-import InfoFilter from './components/Homepage/InfoFilter'
 import CustomizeInfo from './components/Customize/CustomizeInfo'
 import Customize from './components/Customize/Customize'
+import View from './components/View/View'
 
 function App() {
 
@@ -19,6 +19,7 @@ function App() {
               <Customize/>
             </>            
             } />
+          <Route path = "/item/:id/:slug" element = {<View/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>
