@@ -6,7 +6,7 @@ const View = () => {
 
     const params = useParams();
 
-    const {id} = params;
+    const {id, slug} = params;
     const [item, setItem] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -120,7 +120,9 @@ const View = () => {
                     <Link to = {'/'}>
                     <button onClick = {deleteItem} className = "bg-black text-white px-5  duration-150 py-3 rounded-2xl shadow-2xl hover:bg-black/85">Delete Post</button>
                     </Link>
+                    <Link to = {`/customize/${id}/${slug}`}>
                     <button className = "bg-black text-white px-5  duration-150 py-3 rounded-2xl shadow-2xl hover:bg-black/85">Edit Post</button>
+                    </Link>
                 </div>
             </div>
             <div className = "flex flex-col p-5">

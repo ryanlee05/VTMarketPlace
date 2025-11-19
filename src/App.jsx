@@ -5,6 +5,7 @@ import Footer from './components/Shared/Footer'
 import CustomizeInfo from './components/Customize/CustomizeInfo'
 import Customize from './components/Customize/Customize'
 import View from './components/View/View'
+import EditItem from './components/Customize/Update'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             </>            
             } />
           <Route path = "/item/:id/:slug" element = {<View/>}/>
+          <Route path = "/customize/:id/:slug" element = {<EditItem/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>

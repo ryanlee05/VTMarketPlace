@@ -1,18 +1,46 @@
-import {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useState, useEffect } from 'react'
+import {useParams, useNavigate} from 'react-router-dom'
 import supabase from '../../Supabase'
+import UpdateInfo from './UpdateInfo'
 
 
-const Customize = () => {
+const Update = () => {
 
     const navigate = useNavigate();
+
+    const {id} = useParams()
+    const[loading, setLoading] = useState(false);
 
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const[imageURL, setImageURL] = useState('');
-    
-    const[loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (id) {
+            async function fetchItem() {
+                setLoading(true);
+                const { data, error } = await supabase
+                    .from('Items')
+                    .select('*')
+                    .eq('id', parseInt(id))
+                    .single(); 
+
+                if (error) {
+                    console.error('Error fetching item:', error);
+                } else {
+                    setLoading(false);
+                    setTitle(data.title);
+                    setPrice(data.price);
+                    setDescription(data.description)
+                    setImageURL(data.image);
+                }
+                
+            }
+            fetchItem();
+        }
+    }, [id]);
+
 
 
     async function handleSubmit(e) {
@@ -28,7 +56,7 @@ const Customize = () => {
             likes: 0, 
         };
 
-        const {error} = await supabase.from('Items').insert([newItem]).select();
+        const {error} = await supabase.from('Items').update([newItem]).eq('id', id).select();
 
         if (error) {
             console.error("Error inserting item. ", error)
@@ -39,13 +67,16 @@ const Customize = () => {
             setPrice('');
             setDescription('');
             setImageURL('');
-            navigate('/');
+
         }
         setLoading(false);
+        navigate('/');
 
     }
 
     return (
+        <>
+        <UpdateInfo/>
         <div className = "flex w-full mt-10 bg-white items-center justify-center">
             <form onSubmit = {handleSubmit} className = "w-[30vw] p-5 flex flex-col border-2 rounded-2xl gap-5 mb-10 bg-black/15">
                 <div className = "flex flex-row gap-5 ">
@@ -88,12 +119,14 @@ const Customize = () => {
                         required
                     />
                 </div>
-                <button type = "submit" className = {`bg-black px-5 py-3 rounded-3xl text-white ${loading == true ? 'opacity-50 pointer-events-none' : '' }`}>Create Post</button>
+                <button type = "submit" className = {`bg-black px-5 py-3 rounded-3xl text-white ${loading == true ? 'opacity-50 pointer-events-none' : '' }`}>Finish Post</button>
             </form>
         </div>
+        </>
+        
 
     )
 
 }
 
-export default Customize;
+export default Update;
